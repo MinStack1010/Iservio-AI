@@ -9,7 +9,6 @@ import {
   TrendingUp,
   Plane
 } from 'lucide-react';
-
 const navItems = [
   { path: '/', label: 'Dashboard', icon: LayoutDashboard },
   { path: '/domains', label: 'Monitoring Domains', icon: Globe },
