@@ -58,10 +58,10 @@ export function MonitoringDomains() {
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-3xl font-bold text-slate-900 mb-2">
-            Monitoring Domains
+            Monitoring Categories
           </h1>
           <p className="text-slate-600">
-            Manage monitoring domains across the aerospace supply chain
+            Manage monitoring categories across the aerospace supply chain
           </p>
         </div>
         <button 
@@ -69,7 +69,7 @@ export function MonitoringDomains() {
           className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
         >
           <Plus className="w-5 h-5" />
-          <span>Create new domain</span>
+          <span>Create new category</span>
         </button>
       </div>
 

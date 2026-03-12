@@ -54,13 +54,13 @@ export default function Header() {
               </div>
             </div>
 
-            <button className="flex-1 sm:flex-none flex items-center justify-center px-4 py-2 bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400 font-bold rounded-lg text-sm">
+            {/* <button className="flex-1 sm:flex-none flex items-center justify-center px-4 py-2 bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400 font-bold rounded-lg text-sm">
               <Zap className="w-4 h-4 mr-2" /> Enriched
             </button>
 
             <button className="flex-1 sm:flex-none flex items-center justify-center px-6 py-2 bg-blue-600 text-white font-bold rounded-lg shadow-sm hover:bg-blue-700 text-sm w-full sm:w-auto">
               <ShieldCheck className="w-4 h-4 mr-2" /> Approve
-            </button>
+            </button> */}
           </div>
         </div>
 

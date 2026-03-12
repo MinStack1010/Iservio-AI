@@ -11,7 +11,7 @@ import {
 } from 'lucide-react';
 const navItems = [
   { path: '/', label: 'Dashboard', icon: LayoutDashboard },
-  { path: '/domains', label: 'Monitoring Domains', icon: Globe },
+  { path: '/domains', label: 'Monitoring Categories', icon: Globe },
   { path: '/knowledge', label: 'Knowledge Feed', icon: FileText },
   { path: '/events', label: 'Events', icon: AlertTriangle },
   { path: '/suppliers', label: 'Suppliers', icon: Building2 },
@@ -53,7 +53,7 @@ export function Layout() {
                     to={item.path}
                     end={item.path === '/'}
                     className={({ isActive }) =>
-                      `flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${isActive
+                      `flex items-center gap-3 px-3 py-3 rounded-lg transition-colors ${isActive
                         ? 'bg-blue-600 text-white'
                         : 'text-slate-300 hover:bg-slate-800 hover:text-white'
                       }`
