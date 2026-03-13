@@ -13,28 +13,28 @@ import { getProductsByCategory } from "../lib/mockData";
 
 const categories = [
   {
-    id: "lubricants",
-    name: "Lubricants",
-    image: "https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?q=80&w=800",
-    description: "Dầu bôi trơn & Grease hàng không"
+    id: 'lubricants',
+    name: 'Lubricants',
+    image: "https://images.unsplash.com/photo-1622279255822-6ba8d1f5dca5?q=80&w=800",
+    description: "Oils, greases & hydraulic fluids"
   },
   {
-    id: "electronics",
-    name: "Electronics",
-    image: "https://images.unsplash.com/photo-1518770660439-5f0f8e9c6d7e?q=80&w=800",
-    description: "Cảm biến & Bo mạch"
+    id: 'electronics',
+    name: 'Electronics',
+    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=800",
+    description: "Avionics & electronic components"
   },
   {
-    id: "sensors",
-    name: "Sensors",
-    image: "https://images.unsplash.com/photo-1581092160607-9c6c5b7c3b3f?q=80&w=800",
-    description: "Cảm biến áp suất, nhiệt độ"
+    id: 'sensors',
+    name: 'Sensors',
+    image: "https://images.unsplash.com/photo-1559006801-5002-4bf31-8c8c-6c6a3c017f2d?q=80&w=800",
+    description: "Temperature, pressure & vibration sensors"
   },
   {
-    id: "bearings",
-    name: "Bearings",
+    id: 'bearings',
+    name: 'Bearings',
     image: "https://images.unsplash.com/photo-1600585154340-be6161a56a26?q=80&w=800",
-    description: "Vòng bi & ổ lăn"
+    description: "Ball bearings & roller bearings"
   }
 ];
 
@@ -116,7 +116,7 @@ export default function Components() {
             AI Components Diagnostics
           </h1>
           <p className="text-sm text-slate-600 dark:text-slate-400 mb-2">
-            Khám phá các lĩnh vực (lubricants, electronics, sensors...) và xem chuẩn đoán AI chi tiết cho từng linh kiện Boeing.
+            Explore domains (lubricants, electronics, sensors...) and view detailed AI diagnostics for each Boeing component.
           </p>
           {renderBreadcrumb()}
         </div>
@@ -147,7 +147,7 @@ export default function Components() {
                 <h3 className="font-bold text-lg text-gray-900 dark:text-white">{cat.name}</h3>
                 <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{cat.description}</p>
                 <div className="mt-4 text-blue-600 text-xs font-semibold flex items-center gap-1 group-hover:gap-2 transition-all">
-                  Khám phá linh kiện
+                  Explore Components
                   <ArrowLeft className="rotate-180 w-4 h-4" />
                 </div>
               </div>

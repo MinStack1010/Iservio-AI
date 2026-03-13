@@ -1,7 +1,7 @@
 'use client';
 
 import { Package, ShieldAlert, Factory, CheckCircle } from 'lucide-react';
-import { suppliers } from '@/lib/mockData';
+import { suppliers } from '../../../lib/mockData';
 import { useProductStore } from '../../../stores/productsStore';
 
 const getDetailKey = (title?: string | null) => {
@@ -15,20 +15,20 @@ const getDetailKey = (title?: string | null) => {
 const productDetails: Record<string, { overview: string; aiImpact: string; aiInsight: string; specs: string[] }> = {
   mobilgrease28: {
     overview: 'Synthetic aircraft grease for plain and rolling bearings, splines, worm gears. Meets MIL-PRF-81322G, DOD-G-24508A, NATO G-395. Temp range -54°C to 177°C.',
-    aiImpact: 'Ảnh hưởng trực tiếp landing gear, wheel & brake trên 737/767. Rủi ro AOG nếu thiếu nguồn thay thế.',
-    aiInsight: 'Nhu cầu tăng 12 tháng tới (APAC đại tu). Chuỗi cung phụ thuộc nhà máy Đông Âu.',
+    aiImpact: 'Direct impact on landing gear, wheel & brake systems on 737/767. AOG risk if alternative sources unavailable.',
+    aiInsight: 'Demand increasing in next 12 months (APAC maintenance). Supply chain dependent on Eastern European plants.',
     specs: ['MIL-PRF-81322G', 'DOD-G-24508A', 'NATO G-395'],
   },
   aeroshell33ms: {
-    overview: 'Mỡ bôi trơn đa dụng cho vòng bi và cơ cấu tải nặng. Dải nhiệt rộng, bảo vệ mài mòn & ăn mòn.',
-    aiImpact: 'Actuators & control linkages Boeing. Gián đoạn nguồn cung ảnh hưởng flight control systems.',
-    aiInsight: 'Rủi ro nguồn cung do nhà máy Đức. Khuyến nghị tăng tồn kho an toàn.',
+    overview: 'Multi-purpose aircraft grease for bearings and heavy-load mechanisms. Wide temperature range, wear & corrosion protection.',
+    aiImpact: 'Actuators & control linkages Boeing. Supply disruption affects flight control systems.',
+    aiInsight: 'Supply risk due to German plant issues. Recommend increasing safety stock levels.',
     specs: ['MIL-G-21164D', 'BMS 3-33'],
   },
   default: {
-    overview: 'Hạng mục MRO hàng không, tuân thủ quy định và truy xuất nguồn gốc.',
-    aiImpact: 'Linh kiện tham gia nhiều hệ thống trên thân/động cơ/hydraulic.',
-    aiInsight: 'AI theo dõi news, báo cáo nhà máy, logistics để phát hiện rủi ro sớm.',
+    overview: 'Aerospace MRO item, compliant with regulations and traceable sourcing.',
+    aiImpact: 'Component involved in multiple airframe/engine/hydraulic systems.',
+    aiInsight: 'AI monitors news, plant reports, logistics to detect early risks.',
     specs: [],
   },
 };
@@ -98,7 +98,7 @@ export default function ProductSummary() {
                 </tr>
               </thead>
               <tbody>
-                {suppliers.slice(0, 4).map((s, i) => (
+                {suppliers.slice(0, 4).map((s: any, i: number) => (
                   <tr key={i} className="border-b border-slate-100 dark:border-slate-700/50 last:border-0">
                     <td className="px-5 py-2.5 font-medium text-slate-900 dark:text-white">{s.name}</td>
                     <td className={`px-5 py-2.5 text-right font-medium ${s.stockColor}`}>{s.stock}</td>

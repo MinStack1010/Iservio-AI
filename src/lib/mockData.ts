@@ -69,8 +69,8 @@ export const lubricantsData: Product[] = [
     hasImage: true, 
     category: 'lubricants',
     riskScore: 28,
-    obsolescenceWarning: 'Sẽ lỗi thời trong 6 tháng tới do nhà máy Shell tại Đức bị cháy lớn (tháng 2/2026)',
-    obsolescenceWindow: '6–9 tháng tới',
+    obsolescenceWarning: 'Will become obsolete in 6 months due to major fire at Shell Germany plant (Feb 2026)',
+    obsolescenceWindow: '6–9 months ahead',
     confidence: '92%',
     tags: ['Critical', 'High-Temp']
   },
@@ -83,8 +83,8 @@ export const lubricantsData: Product[] = [
     hasImage: true, 
     category: 'lubricants',
     riskScore: 65,
-    obsolescenceWarning: 'Rủi ro cao vì nhà máy Đông Âu đang trong khu vực xung đột',
-    obsolescenceWindow: '6–12 tháng tới',
+    obsolescenceWarning: 'High risk due to Eastern European plant in conflict zone',
+    obsolescenceWindow: '6–12 months ahead',
     confidence: '78%',
     tags: ['Standard', 'All-Weather']
   },
@@ -97,8 +97,8 @@ export const lubricantsData: Product[] = [
     hasImage: true, 
     category: 'lubricants',
     riskScore: 82,
-    obsolescenceWarning: 'Chất liệu gốc PAO từ châu Âu bị gián đoạn do chi phí năng lượng tăng đột biến',
-    obsolescenceWindow: '3–6 tháng tới',
+    obsolescenceWarning: 'PAO base materials from Europe disrupted due to energy cost spike',
+    obsolescenceWindow: '3–6 months ahead',
     confidence: '85%',
     tags: ['AOG', 'Hazardous']
   },
@@ -111,8 +111,8 @@ export const lubricantsData: Product[] = [
     hasImage: true, 
     category: 'lubricants',
     riskScore: 35,
-    obsolescenceWarning: 'Nhà máy sản xuất tại Pháp đang lên kế hoạch bảo trì lớn',
-    obsolescenceWindow: '12–18 tháng tới',
+    obsolescenceWarning: 'French manufacturing plant planning major maintenance',
+    obsolescenceWindow: '12–18 months ahead',
     confidence: '70%',
     tags: ['Hydraulic', 'Legacy']
   },
@@ -125,8 +125,8 @@ export const lubricantsData: Product[] = [
     hasImage: true, 
     category: 'lubricants',
     riskScore: 42,
-    obsolescenceWarning: 'Nguồn cung hóa chất độc hại bị giới hạn bởi quy định mới',
-    obsolescenceWindow: '9–15 tháng tới',
+    obsolescenceWarning: 'Hazardous chemical supply restricted by new regulations',
+    obsolescenceWindow: '9–15 months ahead',
     confidence: '75%',
     tags: ['Fire-Resistant', 'Critical']
   }
@@ -142,8 +142,8 @@ export const electronicsData: Product[] = [
     hasImage: false, 
     category: 'electronics',
     riskScore: 72,
-    obsolescenceWarning: 'AI dự đoán khan hiếm chip FPGA do mở rộng lệnh kiểm soát xuất khẩu',
-    obsolescenceWindow: '12–18 tháng tới',
+    obsolescenceWarning: 'AI predicts FPGA chip shortage due to expanded export controls',
+    obsolescenceWindow: '12–18 months ahead',
     confidence: '88%',
     tags: ['Critical', 'Flight-Systems']
   },
@@ -156,8 +156,8 @@ export const electronicsData: Product[] = [
     hasImage: false, 
     category: 'electronics',
     riskScore: 35,
-    obsolescenceWarning: 'Nhà máy tái cấu trúc tại Đài Loan có thể ảnh hưởng nguồn cung',
-    obsolescenceWindow: '18–24 tháng tới',
+    obsolescenceWarning: 'Taiwan plant restructuring may affect supply chain',
+    obsolescenceWindow: '18–24 months ahead',
     confidence: '65%',
     tags: ['Standard', 'Hydraulic']
   },
@@ -170,8 +170,8 @@ export const electronicsData: Product[] = [
     hasImage: true, 
     category: 'electronics',
     riskScore: 45,
-    obsolescenceWarning: 'Phần sụn cũ sẽ không còn hỗ trợ từ năm 2027',
-    obsolescenceWindow: '12–15 tháng tới',
+    obsolescenceWarning: 'Legacy firmware will no longer be supported from 2027',
+    obsolescenceWindow: '12–15 months ahead',
     confidence: '80%',
     tags: ['Navigation', 'Legacy']
   },
@@ -184,8 +184,8 @@ export const electronicsData: Product[] = [
     hasImage: true, 
     category: 'electronics',
     riskScore: 58,
-    obsolescenceWarning: 'Công nghệ màn hình LCD cũ bị thay thế bởi OLED',
-    obsolescenceWindow: '9–12 tháng tới',
+    obsolescenceWarning: 'Legacy LCD technology being replaced by OLED',
+    obsolescenceWindow: '9–12 months ahead',
     confidence: '82%',
     tags: ['Display', 'Cockpit']
   },
@@ -198,8 +198,8 @@ export const electronicsData: Product[] = [
     hasImage: false, 
     category: 'electronics',
     riskScore: 38,
-    obsolescenceWarning: 'Tần số vô tuyến bị giới hạn bởi quy định mới của FCC',
-    obsolescenceWindow: '15–20 tháng tới',
+    obsolescenceWarning: 'Radio frequencies limited by new FCC regulations',
+    obsolescenceWindow: '15–20 months ahead',
     confidence: '71%',
     tags: ['Communication', 'Avionics']
   }
@@ -215,8 +215,8 @@ export const sensorsData: Product[] = [
     hasImage: false, 
     category: 'sensors',
     riskScore: 91,
-    obsolescenceWarning: 'Cảnh báo REACH mới 2026 – chất liệu sẽ bị cấm',
-    obsolescenceWindow: '9–12 tháng tới',
+    obsolescenceWarning: 'New REACH 2026 regulations - materials will be banned',
+    obsolescenceWindow: '9–12 months ahead',
     confidence: '90%',
     tags: ['Critical', 'Engine', 'High-Risk']
   },
@@ -229,8 +229,8 @@ export const sensorsData: Product[] = [
     hasImage: false, 
     category: 'sensors',
     riskScore: 44,
-    obsolescenceWarning: 'Hợp chất cảm biến cũ bị hạn chế bởi quy định môi trường',
-    obsolescenceWindow: '12–18 tháng tới',
+    obsolescenceWarning: 'Legacy sensor compounds restricted by environmental regulations',
+    obsolescenceWindow: '12–18 months ahead',
     confidence: '76%',
     tags: ['Engine', 'Monitoring']
   },
@@ -243,8 +243,8 @@ export const sensorsData: Product[] = [
     hasImage: false, 
     category: 'sensors',
     riskScore: 52,
-    obsolescenceWarning: 'Nhà sản xuất tại Thụy Điển ngừng sản xuất dòng này',
-    obsolescenceWindow: '6–9 tháng tới',
+    obsolescenceWarning: 'Swedish manufacturer discontinuing this product line',
+    obsolescenceWindow: '6–9 months ahead',
     confidence: '83%',
     tags: ['Hydraulic', 'Standard']
   },
@@ -257,8 +257,8 @@ export const sensorsData: Product[] = [
     hasImage: false, 
     category: 'sensors',
     riskScore: 38,
-    obsolescenceWarning: 'Công nghệ đo lưu lượng cũ bị thay thế bằng ultrasonic',
-    obsolescenceWindow: '15–24 tháng tới',
+    obsolescenceWarning: 'Legacy flow measurement technology replaced by ultrasonic',
+    obsolescenceWindow: '15–24 months ahead',
     confidence: '68%',
     tags: ['Fuel', 'Legacy']
   },
@@ -271,8 +271,8 @@ export const sensorsData: Product[] = [
     hasImage: false, 
     category: 'sensors',
     riskScore: 29,
-    obsolescenceWarning: 'Vật liệu cảm biến bị ảnh hưởng bởi chi phí nguyên liệu thô',
-    obsolescenceWindow: '18–30 tháng tới',
+    obsolescenceWarning: 'Sensor materials affected by raw material cost increases',
+    obsolescenceWindow: '18–30 months ahead',
     confidence: '72%',
     tags: ['Fuel', 'Standard']
   }
@@ -288,8 +288,8 @@ export const bearingsData: Product[] = [
     hasImage: true, 
     category: 'bearings',
     riskScore: 55,
-    obsolescenceWarning: 'AI ghi nhận rủi ro tăng dần do hợp nhất nhà cung cấp',
-    obsolescenceWindow: '12 tháng tới',
+    obsolescenceWarning: 'AI notes increasing risk due to supplier consolidation',
+    obsolescenceWindow: '12 months ahead',
     confidence: '84%',
     tags: ['Critical', 'Landing-Gear']
   },
@@ -302,8 +302,8 @@ export const bearingsData: Product[] = [
     hasImage: true, 
     category: 'bearings',
     riskScore: 31,
-    obsolescenceWarning: 'Nhà máy tập trung sản xuất tại Đông Âu có thể bị ảnh hưởng',
-    obsolescenceWindow: '12–18 tháng tới',
+    obsolescenceWarning: 'Eastern European concentrated production may be affected',
+    obsolescenceWindow: '12–18 months ahead',
     confidence: '77%',
     tags: ['Standard', 'Rotating']
   },
@@ -316,8 +316,8 @@ export const bearingsData: Product[] = [
     hasImage: false, 
     category: 'bearings',
     riskScore: 48,
-    obsolescenceWarning: 'Vật liệu Teflon cũ bị giới hạn bởi quy định mới',
-    obsolescenceWindow: '9–15 tháng tới',
+    obsolescenceWarning: 'Legacy Teflon materials restricted by new regulations',
+    obsolescenceWindow: '9–15 months ahead',
     confidence: '79%',
     tags: ['Self-Lubricating', 'Flight-Control']
   },
@@ -331,8 +331,8 @@ export const bearingsData: Product[] = [
     tags: ['AOG', 'OEM'],
     category: 'bearings',
     riskScore: 25,
-    obsolescenceWarning: 'Nhà máy Boeing đang chuyển đổi sản xuất sang dòng mới',
-    obsolescenceWindow: '18–24 tháng tới',
+    obsolescenceWarning: 'Boeing plant transitioning production to new lines',
+    obsolescenceWindow: '18–24 months ahead',
     confidence: '69%'
   },
   { 
@@ -344,8 +344,8 @@ export const bearingsData: Product[] = [
     hasImage: true, 
     category: 'bearings',
     riskScore: 41,
-    obsolescenceWarning: 'Công nghệ vòng bi cũ bị thay thế bằng ceramic hybrid',
-    obsolescenceWindow: '15–20 tháng tới',
+    obsolescenceWarning: 'Legacy bearing technology replaced by ceramic hybrid',
+    obsolescenceWindow: '15–20 months ahead',
     confidence: '73%',
     tags: ['Rod-End', 'Control-Surface']
   }

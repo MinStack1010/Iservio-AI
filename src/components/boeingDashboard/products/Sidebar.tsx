@@ -58,7 +58,7 @@ function FilterSection({ title, options, searchable = false, collapsed = false }
           <div className={`flex flex-col gap-3 mt-1 ${isExpanded ? 'max-h-56 overflow-y-auto custom-scrollbar pr-2' : ''}`}>
             {displayedOptions.length > 0 ? displayedOptions.map((opt, idx) => (
               <label key={idx} className="flex items-center cursor-pointer group">
-                {/* Checkbox màu Emerald */}
+                {/* Emerald color checkbox */}
                 <input 
                   type="checkbox" 
                   className="w-4 h-4 border-gray-300 dark:border-[#323B49] rounded-sm text-[#10B981] focus:ring-[#10B981] cursor-pointer bg-transparent" 
@@ -127,7 +127,7 @@ export default function Sidebar({ collapsed = false, onToggle }: SidebarProps) {
 
   return (
     <div className="bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl shadow-sm overflow-hidden sticky top-4">
-      {/* Manufacturer filter giống Boeing shop */}
+      {/* Manufacturer filter similar to Boeing shop */}
       <div className="border-b border-slate-200 dark:border-slate-700">
         <button className="w-full flex justify-between items-center p-4 text-left">
           <span className="text-[15px] font-medium text-gray-800 dark:text-gray-200">
@@ -165,7 +165,7 @@ export default function Sidebar({ collapsed = false, onToggle }: SidebarProps) {
         </div>
       </div>
 
-      {/* Các filter tĩnh khác (Availability, Product Type, Condition) */}
+      {/* Other static filters (Availability, Product Type, Condition) */}
       {filters.map((filter, idx) => (
         <FilterSection 
           key={idx} 

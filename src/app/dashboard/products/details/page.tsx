@@ -22,7 +22,7 @@ export default function DashboardDetailsPage() {
               className="flex items-center gap-2 text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
             >
               {showMore ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-              {showMore ? 'Thu gọn' : 'Alternatives & metadata'}
+              {showMore ? 'Collapse' : 'Alternatives & metadata'}
             </button>
             {showMore && (
               <div className="grid grid-cols-1 xl:grid-cols-12 gap-6 mt-4">
