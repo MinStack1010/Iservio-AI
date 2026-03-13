@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate, useLocation } from "react-router";
 import {
   ArrowLeft, Search,
   Flame, ShieldAlert
@@ -42,6 +42,7 @@ const categories = [
 
 export default function Components() {
   const navigate = useNavigate();
+  const location = useLocation();
   const setSelectedProduct = useProductStore((state) => state.setSelectedProduct);
   const setCategory = useProductStore((state) => state.setCategory);
   const clearFilters = useProductStore((state) => state.clearFilters);
@@ -52,19 +53,22 @@ export default function Components() {
   // Use store state instead of local state
   const view = useProductStore((state) => state.currentView);
   const selectedCategory = useProductStore((state) => state.currentSelectedCategory);
-  const previousView = useProductStore((state) => state.previousView);
-  const previousCategory = useProductStore((state) => state.previousCategory);
 
-  // Check if we're returning from product details
+  // Reset to categories view when navigating from other pages (not from product details)
   useEffect(() => {
-    if (previousView === "components" && previousCategory) {
-      setCurrentView("components");
-      setCurrentSelectedCategory(previousCategory);
-      setCategory(previousCategory.id);
-      // Clear the navigation state after using it
-      setNavigationState("categories", null);
+    // Check if we're returning from product details
+    if (location.state?.returningFromDetails) {
+      // Keep the current state when returning from details
+      // Clear the state to prevent issues on refresh
+      navigate(location.pathname, { replace: true, state: null });
+    } else {
+      // If we're not returning from details, reset to categories view
+      setCurrentView("categories");
+      setCurrentSelectedCategory(null);
+      setCategory(null);
+      clearFilters();
     }
-  }, [previousView, previousCategory, setCategory, setNavigationState, setCurrentView, setCurrentSelectedCategory]);
+  }, [location.state, setCurrentView, setCurrentSelectedCategory, setCategory, clearFilters, navigate]);
 
 
 

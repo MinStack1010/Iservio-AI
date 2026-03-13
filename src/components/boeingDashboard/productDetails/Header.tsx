@@ -1,23 +1,21 @@
 // src/components/dashboard-details/Header.tsx
 import { ArrowLeft, CheckCircle } from 'lucide-react';
 import { useProductStore } from '../../../stores/productsStore';
-import { useNavigate } from 'react-router';
+import { useNavigate, useLocation } from 'react-router';
 
 export default function Header() {
   const selectedProduct = useProductStore((state) => state.selectedProduct);
-  const previousView = useProductStore((state) => state.previousView);
-  const previousCategory = useProductStore((state) => state.previousCategory);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleBack = () => {
-    if (previousView === "components" && previousCategory) {
-      navigate('/components');
-      // The Components page will need to check the store state to show the right view
-      setTimeout(() => {
-        // This will be handled by the Components page checking store state
-      }, 0);
+    // Check if we came from components page
+    if (location.state?.from === 'components') {
+      // Navigate back to components with a flag to preserve state
+      navigate('/components', { state: { returningFromDetails: true } });
     } else {
-      navigate('/components');
+      // Fallback to browser back
+      navigate(-1);
     }
   };
 

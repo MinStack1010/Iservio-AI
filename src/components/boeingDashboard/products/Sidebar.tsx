@@ -1,13 +1,13 @@
 // src/components/boeingDashboard/products/Sidebar.tsx
 'use client';
 import { useState, useMemo } from 'react';
-import { ChevronDown, ChevronUp, Search } from 'lucide-react';
+import { ChevronDown, ChevronUp, Search, ChevronLeft, ChevronRight } from 'lucide-react';
 import { filters, mockProducts } from '../../../lib/mockData';
 import { useProductStore } from '../../../stores/productsStore';
 
 const DISPLAY_LIMIT = 5; 
 
-function FilterSection({ title, options, searchable = false }: { title: string, options: any[], searchable?: boolean }) {
+function FilterSection({ title, options, searchable = false, collapsed = false }: { title: string, options: any[], searchable?: boolean, collapsed?: boolean }) {
   const [isOpen, setIsOpen] = useState(true);
   const [localSearch, setLocalSearch] = useState('');
   const [isExpanded, setIsExpanded] = useState(false);
@@ -23,6 +23,10 @@ function FilterSection({ title, options, searchable = false }: { title: string, 
 
   const hiddenCount = filteredOptions.length - DISPLAY_LIMIT;
   const showToggleBtn = !localSearch && filteredOptions.length > DISPLAY_LIMIT;
+
+  if (collapsed) {
+    return null; // Hide filter sections when collapsed
+  }
 
   return (
     <div className="border-b border-slate-200 dark:border-slate-700 last:border-b-0">
@@ -86,7 +90,12 @@ function FilterSection({ title, options, searchable = false }: { title: string, 
   );
 }
 
-export default function Sidebar() {
+interface SidebarProps {
+  collapsed?: boolean;
+  onToggle?: () => void;
+}
+
+export default function Sidebar({ collapsed = false, onToggle }: SidebarProps) {
   const allProducts = useProductStore((state) => state.allProducts);
   const manufacturerFilter = useProductStore((state) => state.manufacturerFilter);
   const toggleManufacturerFilter = useProductStore((state) => state.toggleManufacturerFilter);
@@ -101,6 +110,20 @@ export default function Sidebar() {
       .map(([label, count]) => ({ label, count }))
       .sort((a, b) => a.label.localeCompare(b.label));
   }, [allProducts]);
+
+  if (collapsed) {
+    return (
+      <div className="bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl shadow-sm overflow-hidden sticky top-4 p-2">
+        <button
+          onClick={onToggle}
+          className="w-full flex items-center justify-center p-2 text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
+          title="Expand Filters"
+        >
+          <ChevronRight className="w-5 h-5" />
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl shadow-sm overflow-hidden sticky top-4">
@@ -149,6 +172,7 @@ export default function Sidebar() {
           title={filter.title} 
           options={filter.options} 
           searchable={filter.title === 'Product Type' || filter.title === 'Condition'} 
+          collapsed={collapsed}
         />
       ))}
     </div>

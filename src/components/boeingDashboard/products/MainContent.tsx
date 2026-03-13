@@ -31,7 +31,8 @@ export default function MainContent() {
 
   const handleOpenDetails = (product: any) => {
     setSelectedProduct(product);
-    navigate('/dashboard/products/details');
+    // Navigate with state to indicate we're going to details
+    navigate('/dashboard/products/details', { state: { from: 'components' } });
   };
 
   const getRiskColor = (score: number) => {
