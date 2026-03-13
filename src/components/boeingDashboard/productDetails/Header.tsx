@@ -9,7 +9,17 @@ export default function Header() {
   const previousCategory = useProductStore((state) => state.previousCategory);
   const navigate = useNavigate();
 
-  const handleBack = () => navigate('/components');
+  const handleBack = () => {
+    if (previousView === "components" && previousCategory) {
+      navigate('/components');
+      // The Components page will need to check the store state to show the right view
+      setTimeout(() => {
+        // This will be handled by the Components page checking store state
+      }, 0);
+    } else {
+      navigate('/components');
+    }
+  };
 
   return (
     <div className="max-w-6xl mx-auto">
