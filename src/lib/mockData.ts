@@ -51,7 +51,321 @@ export interface Product {
   distributor: string;
   hasImage: boolean;
   tags?: string[];
+  category?: string;
+  riskScore?: number;
+  obsolescenceWarning?: string;
+  obsolescenceWindow?: string;
+  confidence?: string;
 }
+
+// Category-specific data
+export const lubricantsData: Product[] = [
+  { 
+    id: 'lub1', 
+    title: 'Aeroshell Grease 33MS', 
+    sku: 'MIL-G-21164D', 
+    manufacturer: 'Shell Aviation', 
+    distributor: 'Boeing Distribution Inc.', 
+    hasImage: true, 
+    category: 'lubricants',
+    riskScore: 28,
+    obsolescenceWarning: 'Sẽ lỗi thời trong 6 tháng tới do nhà máy Shell tại Đức bị cháy lớn (tháng 2/2026)',
+    obsolescenceWindow: '6–9 tháng tới',
+    confidence: '92%',
+    tags: ['Critical', 'High-Temp']
+  },
+  { 
+    id: 'lub2', 
+    title: 'Mobilgrease 28', 
+    sku: 'MIL-G-81322', 
+    manufacturer: 'ExxonMobil', 
+    distributor: 'Boeing Distribution Inc.', 
+    hasImage: true, 
+    category: 'lubricants',
+    riskScore: 65,
+    obsolescenceWarning: 'Rủi ro cao vì nhà máy Đông Âu đang trong khu vực xung đột',
+    obsolescenceWindow: '6–12 tháng tới',
+    confidence: '78%',
+    tags: ['Standard', 'All-Weather']
+  },
+  { 
+    id: 'lub3', 
+    title: 'Royco 22', 
+    sku: 'MIL-PRF-81322', 
+    manufacturer: 'Lanxess', 
+    distributor: 'Boeing Distribution Inc.', 
+    hasImage: true, 
+    category: 'lubricants',
+    riskScore: 82,
+    obsolescenceWarning: 'Chất liệu gốc PAO từ châu Âu bị gián đoạn do chi phí năng lượng tăng đột biến',
+    obsolescenceWindow: '3–6 tháng tới',
+    confidence: '85%',
+    tags: ['AOG', 'Hazardous']
+  },
+  { 
+    id: 'lub4', 
+    title: 'Aeroshell Fluid 21', 
+    sku: 'MIL-H-5606A', 
+    manufacturer: 'Shell Aviation', 
+    distributor: 'Boeing Distribution Inc.', 
+    hasImage: true, 
+    category: 'lubricants',
+    riskScore: 35,
+    obsolescenceWarning: 'Nhà máy sản xuất tại Pháp đang lên kế hoạch bảo trì lớn',
+    obsolescenceWindow: '12–18 tháng tới',
+    confidence: '70%',
+    tags: ['Hydraulic', 'Legacy']
+  },
+  { 
+    id: 'lub5', 
+    title: 'Skydrol Hydraulic Fluid', 
+    sku: 'AS1241', 
+    manufacturer: 'Eastman', 
+    distributor: 'Boeing Distribution Inc.', 
+    hasImage: true, 
+    category: 'lubricants',
+    riskScore: 42,
+    obsolescenceWarning: 'Nguồn cung hóa chất độc hại bị giới hạn bởi quy định mới',
+    obsolescenceWindow: '9–15 tháng tới',
+    confidence: '75%',
+    tags: ['Fire-Resistant', 'Critical']
+  }
+];
+
+export const electronicsData: Product[] = [
+  { 
+    id: 'ele1', 
+    title: 'Flight Control Sensor', 
+    sku: 'DO-160G', 
+    manufacturer: 'EuroElectronics', 
+    distributor: 'Boeing Distribution Inc.', 
+    hasImage: false, 
+    category: 'electronics',
+    riskScore: 72,
+    obsolescenceWarning: 'AI dự đoán khan hiếm chip FPGA do mở rộng lệnh kiểm soát xuất khẩu',
+    obsolescenceWindow: '12–18 tháng tới',
+    confidence: '88%',
+    tags: ['Critical', 'Flight-Systems']
+  },
+  { 
+    id: 'ele2', 
+    title: 'Pressure Transducer', 
+    sku: 'DO-178C', 
+    manufacturer: 'Honeywell', 
+    distributor: 'Boeing Distribution Inc.', 
+    hasImage: false, 
+    category: 'electronics',
+    riskScore: 35,
+    obsolescenceWarning: 'Nhà máy tái cấu trúc tại Đài Loan có thể ảnh hưởng nguồn cung',
+    obsolescenceWindow: '18–24 tháng tới',
+    confidence: '65%',
+    tags: ['Standard', 'Hydraulic']
+  },
+  { 
+    id: 'ele3', 
+    title: 'Navigation Computer Module', 
+    sku: 'ARINC-429', 
+    manufacturer: 'Garmin', 
+    distributor: 'Boeing Distribution Inc.', 
+    hasImage: true, 
+    category: 'electronics',
+    riskScore: 45,
+    obsolescenceWarning: 'Phần sụn cũ sẽ không còn hỗ trợ từ năm 2027',
+    obsolescenceWindow: '12–15 tháng tới',
+    confidence: '80%',
+    tags: ['Navigation', 'Legacy']
+  },
+  { 
+    id: 'ele4', 
+    title: 'Display Control Unit', 
+    sku: 'DO-254', 
+    manufacturer: 'Rockwell Collins', 
+    distributor: 'Boeing Distribution Inc.', 
+    hasImage: true, 
+    category: 'electronics',
+    riskScore: 58,
+    obsolescenceWarning: 'Công nghệ màn hình LCD cũ bị thay thế bởi OLED',
+    obsolescenceWindow: '9–12 tháng tới',
+    confidence: '82%',
+    tags: ['Display', 'Cockpit']
+  },
+  { 
+    id: 'ele5', 
+    title: 'Communication Radio', 
+    sku: 'RTCA-DO-186', 
+    manufacturer: 'Harris', 
+    distributor: 'Boeing Distribution Inc.', 
+    hasImage: false, 
+    category: 'electronics',
+    riskScore: 38,
+    obsolescenceWarning: 'Tần số vô tuyến bị giới hạn bởi quy định mới của FCC',
+    obsolescenceWindow: '15–20 tháng tới',
+    confidence: '71%',
+    tags: ['Communication', 'Avionics']
+  }
+];
+
+export const sensorsData: Product[] = [
+  { 
+    id: 'sen1', 
+    title: 'Temperature Sensor ASG-TS-01', 
+    sku: 'AS9100', 
+    manufacturer: 'Boeing OEM', 
+    distributor: 'Boeing Distribution Inc.', 
+    hasImage: false, 
+    category: 'sensors',
+    riskScore: 91,
+    obsolescenceWarning: 'Cảnh báo REACH mới 2026 – chất liệu sẽ bị cấm',
+    obsolescenceWindow: '9–12 tháng tới',
+    confidence: '90%',
+    tags: ['Critical', 'Engine', 'High-Risk']
+  },
+  { 
+    id: 'sen2', 
+    title: 'Vibration Sensor', 
+    sku: 'DO-160', 
+    manufacturer: 'Meggitt', 
+    distributor: 'Boeing Distribution Inc.', 
+    hasImage: false, 
+    category: 'sensors',
+    riskScore: 44,
+    obsolescenceWarning: 'Hợp chất cảm biến cũ bị hạn chế bởi quy định môi trường',
+    obsolescenceWindow: '12–18 tháng tới',
+    confidence: '76%',
+    tags: ['Engine', 'Monitoring']
+  },
+  { 
+    id: 'sen3', 
+    title: 'Pressure Sensor', 
+    sku: 'AS9100', 
+    manufacturer: 'Parker', 
+    distributor: 'Boeing Distribution Inc.', 
+    hasImage: false, 
+    category: 'sensors',
+    riskScore: 52,
+    obsolescenceWarning: 'Nhà sản xuất tại Thụy Điển ngừng sản xuất dòng này',
+    obsolescenceWindow: '6–9 tháng tới',
+    confidence: '83%',
+    tags: ['Hydraulic', 'Standard']
+  },
+  { 
+    id: 'sen4', 
+    title: 'Flow Sensor', 
+    sku: 'DO-160', 
+    manufacturer: 'Badger Meter', 
+    distributor: 'Boeing Distribution Inc.', 
+    hasImage: false, 
+    category: 'sensors',
+    riskScore: 38,
+    obsolescenceWarning: 'Công nghệ đo lưu lượng cũ bị thay thế bằng ultrasonic',
+    obsolescenceWindow: '15–24 tháng tới',
+    confidence: '68%',
+    tags: ['Fuel', 'Legacy']
+  },
+  { 
+    id: 'sen5', 
+    title: 'Level Sensor', 
+    sku: 'AS9100', 
+    manufacturer: 'Gems Sensors', 
+    distributor: 'Boeing Distribution Inc.', 
+    hasImage: false, 
+    category: 'sensors',
+    riskScore: 29,
+    obsolescenceWarning: 'Vật liệu cảm biến bị ảnh hưởng bởi chi phí nguyên liệu thô',
+    obsolescenceWindow: '18–30 tháng tới',
+    confidence: '72%',
+    tags: ['Fuel', 'Standard']
+  }
+];
+
+export const bearingsData: Product[] = [
+  { 
+    id: 'bear1', 
+    title: 'Main Bearing 1234-AB', 
+    sku: 'AS81820', 
+    manufacturer: 'SKF Aviation', 
+    distributor: 'Boeing Distribution Inc.', 
+    hasImage: true, 
+    category: 'bearings',
+    riskScore: 55,
+    obsolescenceWarning: 'AI ghi nhận rủi ro tăng dần do hợp nhất nhà cung cấp',
+    obsolescenceWindow: '12 tháng tới',
+    confidence: '84%',
+    tags: ['Critical', 'Landing-Gear']
+  },
+  { 
+    id: 'bear2', 
+    title: '5935', 
+    sku: 'Roller Bearing, Tapered, Single Row', 
+    manufacturer: 'Timken', 
+    distributor: 'Boeing Distribution Inc.', 
+    hasImage: true, 
+    category: 'bearings',
+    riskScore: 31,
+    obsolescenceWarning: 'Nhà máy tập trung sản xuất tại Đông Âu có thể bị ảnh hưởng',
+    obsolescenceWindow: '12–18 tháng tới',
+    confidence: '77%',
+    tags: ['Standard', 'Rotating']
+  },
+  { 
+    id: 'bear3', 
+    title: 'MS21428-5', 
+    sku: 'Teflon Lined, Self-Lubricating Bearing', 
+    manufacturer: 'NHBB', 
+    distributor: 'Boeing Distribution Inc.', 
+    hasImage: false, 
+    category: 'bearings',
+    riskScore: 48,
+    obsolescenceWarning: 'Vật liệu Teflon cũ bị giới hạn bởi quy định mới',
+    obsolescenceWindow: '9–15 tháng tới',
+    confidence: '79%',
+    tags: ['Self-Lubricating', 'Flight-Control']
+  },
+  { 
+    id: 'bear4', 
+    title: 'BACB10FV06K', 
+    sku: 'Bush, Sleeve, Flanged, Press Fit', 
+    manufacturer: 'The Boeing Company', 
+    distributor: 'Commercial Capital', 
+    hasImage: true, 
+    tags: ['AOG', 'OEM'],
+    category: 'bearings',
+    riskScore: 25,
+    obsolescenceWarning: 'Nhà máy Boeing đang chuyển đổi sản xuất sang dòng mới',
+    obsolescenceWindow: '18–24 tháng tới',
+    confidence: '69%'
+  },
+  { 
+    id: 'bear5', 
+    title: 'MS14101-4', 
+    sku: 'Bearing, Roller, Rod End, Self-Aligning', 
+    manufacturer: 'Schaeffler Group USA Inc', 
+    distributor: 'Commercial Capital', 
+    hasImage: true, 
+    category: 'bearings',
+    riskScore: 41,
+    obsolescenceWarning: 'Công nghệ vòng bi cũ bị thay thế bằng ceramic hybrid',
+    obsolescenceWindow: '15–20 tháng tới',
+    confidence: '73%',
+    tags: ['Rod-End', 'Control-Surface']
+  }
+];
+
+// Function to get products by category
+export const getProductsByCategory = (category: string): Product[] => {
+  switch (category) {
+    case 'lubricants':
+      return lubricantsData;
+    case 'electronics':
+      return electronicsData;
+    case 'sensors':
+      return sensorsData;
+    case 'bearings':
+      return bearingsData;
+    default:
+      return [];
+  }
+};
 
 export const mockProducts: Product[] = [
   { id: '1', title: '5935', sku: 'Roller Bearing, Tapered, Single Row, 1.25" ID, Straight Bore, Steel', manufacturer: 'Timken', distributor: 'Boeing Distribution Inc. Formally Aviall', hasImage: true },

@@ -1,6 +1,6 @@
 // src/stores/productsStore.ts
 import { create } from 'zustand';
-import { Product, mockProducts } from '../lib/mockData';
+import { Product, mockProducts, getProductsByCategory } from '../lib/mockData';
 
 interface ProductState {
   allProducts: Product[];
@@ -9,12 +9,21 @@ interface ProductState {
   isDark: boolean;
   selectedProduct: Product | null;
   manufacturerFilter: string[];
+  currentCategory: string | null;
+  previousView: "categories" | "components" | null;
+  previousCategory: any | null;
+  currentView: "categories" | "components";
+  currentSelectedCategory: any | null;
 
   setSearchQuery: (query: string) => void;
   toggleTheme: () => void; 
   setSelectedProduct: (product: Product) => void;
   toggleManufacturerFilter: (manufacturer: string) => void;
   clearFilters: () => void;
+  setCategory: (category: string | null) => void;
+  setNavigationState: (view: "categories" | "components", category: any | null) => void;
+  setCurrentView: (view: "categories" | "components") => void;
+  setCurrentSelectedCategory: (category: any | null) => void;
 }
 
 const applyFilters = (
@@ -42,6 +51,11 @@ export const useProductStore = create<ProductState>((set) => ({
   isDark: false,
   selectedProduct: null,
   manufacturerFilter: [],
+  currentCategory: null,
+  previousView: null,
+  previousCategory: null,
+  currentView: "categories",
+  currentSelectedCategory: null,
 
   setSearchQuery: (query) =>
     set((state) => ({
@@ -70,5 +84,31 @@ export const useProductStore = create<ProductState>((set) => ({
       searchQuery: '',
       manufacturerFilter: [],
       filteredProducts: state.allProducts,
+    })),
+
+  setCategory: (category) =>
+    set((state) => {
+      const categoryProducts = category ? getProductsByCategory(category) : mockProducts;
+      return {
+        currentCategory: category,
+        allProducts: categoryProducts,
+        filteredProducts: applyFilters(categoryProducts, state.searchQuery, state.manufacturerFilter),
+      };
+    }),
+
+  setNavigationState: (view, category) =>
+    set(() => ({
+      previousView: view,
+      previousCategory: category,
+    })),
+
+  setCurrentView: (view) =>
+    set(() => ({
+      currentView: view,
+    })),
+
+  setCurrentSelectedCategory: (category) =>
+    set(() => ({
+      currentSelectedCategory: category,
     })),
 }));

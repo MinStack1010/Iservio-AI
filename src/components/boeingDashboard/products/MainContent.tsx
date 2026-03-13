@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from 'react';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, AlertTriangle, TrendingUp } from 'lucide-react';
 import { useNavigate } from 'react-router';
 import { useProductStore } from '../../../stores/productsStore';
 
@@ -34,6 +34,37 @@ export default function MainContent() {
     navigate('/dashboard/products/details');
   };
 
+  const getRiskColor = (score: number) => {
+    if (score > 70) return "text-red-600";
+    if (score > 45) return "text-yellow-600";
+    return "text-emerald-600";
+  };
+
+  const getRiskBg = (score: number) => {
+    if (score > 70) return "bg-red-50 dark:bg-red-900/10";
+    if (score > 45) return "bg-orange-50 dark:bg-orange-900/10";
+    return "bg-emerald-50 dark:bg-emerald-900/10";
+  };
+
+  const getTagColor = (tag: string) => {
+    switch (tag.toLowerCase()) {
+      case 'aog':
+        return 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400';
+      case 'critical':
+        return 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-400';
+      case 'hazardous':
+        return 'bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400';
+      case 'high-risk':
+        return 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400';
+      case 'legacy':
+        return 'bg-gray-100 dark:bg-gray-900/30 text-gray-700 dark:text-gray-400';
+      case 'oem':
+        return 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400';
+      default:
+        return 'bg-slate-100 dark:bg-slate-900/30 text-slate-700 dark:text-slate-400';
+    }
+  };
+
   return (
     <div className="flex-1 min-w-0">
       {searchQuery && (
@@ -59,13 +90,14 @@ export default function MainContent() {
       </div>
 
       <div className="bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl shadow-sm overflow-hidden overflow-x-auto custom-scrollbar">
-        <table className="w-full text-sm min-w-[640px]">
+        <table className="w-full text-sm min-w-[800px]">
           <thead className="bg-slate-50 dark:bg-slate-800/80 text-slate-600 dark:text-slate-400">
             <tr>
               <th className="px-5 py-3 text-left font-semibold">Part Number</th>
               <th className="px-5 py-3 text-left font-semibold">Description</th>
               <th className="px-5 py-3 text-left font-semibold">Manufacturer</th>
-              <th className="px-5 py-3 text-left font-semibold">Distributor</th>
+              <th className="px-5 py-3 text-center font-semibold">Risk Score</th>
+              <th className="px-5 py-3 text-left font-semibold">Obsolescence Warning</th>
               <th className="px-5 py-3 text-center font-semibold">Tags</th>
               <th className="px-5 py-3 text-center font-semibold">Action</th>
             </tr>
@@ -73,7 +105,7 @@ export default function MainContent() {
           <tbody>
             {pageItems.length === 0 && (
               <tr>
-                <td colSpan={6} className="px-5 py-12 text-center text-slate-500 dark:text-slate-400">
+                <td colSpan={7} className="px-5 py-12 text-center text-slate-500 dark:text-slate-400">
                   No products found. Try adjusting your filters.
                 </td>
               </tr>
@@ -97,14 +129,60 @@ export default function MainContent() {
                 <td className="px-5 py-3.5 align-top text-slate-700 dark:text-slate-300">
                   {product.manufacturer}
                 </td>
-                <td className="px-5 py-3.5 align-top text-slate-700 dark:text-slate-300">
-                  {product.distributor}
+                <td className="px-5 py-3.5 align-top text-center">
+                  {product.riskScore !== undefined ? (
+                    <div className="flex items-center justify-center gap-1">
+                      <TrendingUp className={`w-4 h-4 ${getRiskColor(product.riskScore)}`} />
+                      <span className={`font-medium ${getRiskColor(product.riskScore)}`}>
+                        {product.riskScore}
+                      </span>
+                    </div>
+                  ) : (
+                    <span className="text-slate-400">-</span>
+                  )}
+                </td>
+                <td className="px-5 py-3.5 align-top">
+                  {product.obsolescenceWarning ? (
+                    <div className="max-w-[300px]">
+                      <div className="flex items-start gap-2">
+                        <AlertTriangle className="w-4 h-4 text-amber-500 mt-0.5 flex-shrink-0" />
+                        <div className="space-y-1">
+                          <p className="text-xs text-slate-600 dark:text-slate-400 line-clamp-2">
+                            {product.obsolescenceWarning}
+                          </p>
+                          {product.obsolescenceWindow && (
+                            <div className="flex items-center gap-2">
+                              <span className={`inline-flex px-2 py-0.5 rounded text-xs font-medium ${getRiskBg(product.riskScore || 0)} ${getRiskColor(product.riskScore || 0)}`}>
+                                {product.obsolescenceWindow}
+                              </span>
+                              {product.confidence && (
+                                <span className="text-xs text-slate-500">
+                                  ({product.confidence})
+                                </span>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <span className="text-slate-400">No warnings</span>
+                  )}
                 </td>
                 <td className="px-5 py-3.5 align-top text-center">
-                  {product.tags?.includes('AOG') && (
-                    <span className="inline-flex px-2 py-0.5 rounded-md bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 text-xs font-medium">
-                      AOG
-                    </span>
+                  {product.tags && product.tags.length > 0 ? (
+                    <div className="flex flex-wrap gap-1 justify-center">
+                      {product.tags.map((tag, index) => (
+                        <span
+                          key={index}
+                          className={`inline-flex px-2 py-0.5 rounded text-xs font-medium ${getTagColor(tag)}`}
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  ) : (
+                    <span className="text-slate-400 text-xs">No tags</span>
                   )}
                 </td>
                 <td className="px-5 py-3.5 align-top text-center">

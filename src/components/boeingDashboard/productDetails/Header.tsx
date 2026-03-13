@@ -5,13 +5,17 @@ import { useNavigate } from 'react-router';
 
 export default function Header() {
   const selectedProduct = useProductStore((state) => state.selectedProduct);
+  const previousView = useProductStore((state) => state.previousView);
+  const previousCategory = useProductStore((state) => state.previousCategory);
   const navigate = useNavigate();
+
+  const handleBack = () => navigate('/components');
 
   return (
     <div className="max-w-6xl mx-auto">
       <button
         className="flex items-center gap-2 text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white mb-4 transition-colors"
-       onClick={() => navigate(-1)}
+       onClick={handleBack}
       >
         <ArrowLeft size={16} />
         Back
