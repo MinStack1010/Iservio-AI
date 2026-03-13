@@ -1,6 +1,6 @@
 
 import { ArrowRightLeft, CheckCircle, AlertCircle, XCircle } from 'lucide-react';
-import { alternatives } from '@/lib/mockData';
+import { alternatives } from '../../../lib/mockData';
 
 export default function SubstitutionEngine() {
   const getIcon = (status: string) => {
@@ -10,7 +10,7 @@ export default function SubstitutionEngine() {
   };
 
   return (
-    <div className="bg-white dark:bg-[#11151C] border border-gray-200 dark:border-gray-800 rounded-lg overflow-hidden h-full">
+    <div className="bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden">
 
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center px-4 py-3 border-b border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-transparent gap-3">
         <div className="flex flex-wrap items-center gap-2">
@@ -43,9 +43,9 @@ export default function SubstitutionEngine() {
           <tbody>
             {alternatives.map((alt, i) => (
               <tr key={i} className="border-b border-gray-100 dark:border-gray-800/50 hover:bg-gray-50 dark:hover:bg-gray-800/20 transition-colors">
-                <td className="py-4">
-                  <div className="flex items-center">
-                    <div className="w-5 h-5 rounded bg-gray-900 dark:bg-gray-800 text-white flex items-center justify-center font-bold text-[11px] mr-2 flex-shrink-0">
+                <td className="py-4 pr-4">
+                  <div className="flex flex-col items-center">
+                    <div className="w-5 h-5 rounded bg-gray-900 mb-1 dark:bg-gray-800 text-white flex items-center justify-center font-bold text-[11px] mr-2 flex-shrink-0">
                       {i + 1}
                     </div>
                     <span className={`font-bold capitalize ${alt.statusColor}`}>{alt.status}</span>

@@ -1,56 +1,161 @@
+"use client";
 
-"use client" 
+import { useMemo, useState } from 'react';
 import { ChevronRight } from 'lucide-react';
-import ProductCard from './ProductCard';
+import { useNavigate } from 'react-router';
 import { useProductStore } from '../../../stores/productsStore';
+
+const PAGE_SIZE = 10;
 
 export default function MainContent() {
   const products = useProductStore((state) => state.filteredProducts);
   const searchQuery = useProductStore((state) => state.searchQuery);
-  
-  return (
-    <div className="w-full md:w-3/4 lg:w-4/5">
+  const setSelectedProduct = useProductStore((state) => state.setSelectedProduct);
+  const navigate = useNavigate();
 
+  const [page, setPage] = useState(1);
+
+  const { totalPages, pageItems, from, to } = useMemo(() => {
+    const total = products.length;
+    const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+    const currentPage = Math.min(page, totalPages);
+    const startIndex = (currentPage - 1) * PAGE_SIZE;
+    const endIndex = startIndex + PAGE_SIZE;
+    return {
+      totalPages,
+      pageItems: products.slice(startIndex, endIndex),
+      from: total === 0 ? 0 : startIndex + 1,
+      to: Math.min(endIndex, total),
+    };
+  }, [products, page]);
+
+  const handleOpenDetails = (product: any) => {
+    setSelectedProduct(product);
+    navigate('/dashboard/products/details');
+  };
+
+  return (
+    <div className="flex-1 min-w-0">
       {searchQuery && (
-        <div className="bg-[#11151C] border border-[#1E2532] p-3 rounded-sm mb-4 flex justify-between items-center">
-          <span className="text-xs text-gray-400">
-            Found <strong className="text-white">{products.length}</strong> results for "{searchQuery}"
+        <div className="mb-4 px-4 py-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800/50">
+          <span className="text-sm text-blue-800 dark:text-blue-200">
+            Found <strong>{products.length}</strong> results for &quot;{searchQuery}&quot;
           </span>
         </div>
       )}
- 
-      <div className="flex flex-col sm:flex-row justify-between items-center bg-gray-50 dark:bg-[#11151C] p-3 border border-gray-200 dark:border-[#1E2532] rounded-sm mb-4">
-        <span className="text-xs text-gray-600 dark:text-gray-400 font-medium">Showing 1-20 of 15,310 results</span>
-        <div className="flex items-center mt-2 sm:mt-0">
-          <label className="text-xs text-gray-600 dark:text-gray-400 mr-2 font-medium">Sort By:</label>
-          <select className="border border-gray-300 dark:border-[#323B49] text-xs py-1.5 px-3 rounded-sm bg-white dark:bg-[#0A0D14] dark:text-white focus:outline-none focus:border-[#10B981] transition-colors">
+
+      <div className="flex flex-col sm:flex-row justify-between items-center gap-2 mb-4">
+        <span className="text-sm text-slate-600 dark:text-slate-400">
+          Showing {from}–{to} of {products.length} results
+        </span>
+        <div className="flex items-center gap-2">
+          <label className="text-sm text-slate-600 dark:text-slate-400">Sort:</label>
+          <select className="text-sm py-1.5 px-3 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
             <option>Best Match</option>
-            <option>Part Number (A-Z)</option>
-            <option>Part Number (Z-A)</option>
+            <option>Part Number (A–Z)</option>
+            <option>Part Number (Z–A)</option>
           </select>
         </div>
       </div>
 
-      <div className="border border-gray-200 dark:border-[#1E2532] rounded-sm bg-white dark:bg-[#11151C] flex flex-col">
-        {products.map((product, index) => (
-          <ProductCard 
-            key={product.id} 
-            product={product} 
-            isLast={index === products.length - 1} 
-          />
-        ))}
+      <div className="bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl shadow-sm overflow-hidden overflow-x-auto custom-scrollbar">
+        <table className="w-full text-sm min-w-[640px]">
+          <thead className="bg-slate-50 dark:bg-slate-800/80 text-slate-600 dark:text-slate-400">
+            <tr>
+              <th className="px-5 py-3 text-left font-semibold">Part Number</th>
+              <th className="px-5 py-3 text-left font-semibold">Description</th>
+              <th className="px-5 py-3 text-left font-semibold">Manufacturer</th>
+              <th className="px-5 py-3 text-left font-semibold">Distributor</th>
+              <th className="px-5 py-3 text-center font-semibold">Tags</th>
+              <th className="px-5 py-3 text-center font-semibold">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {pageItems.length === 0 && (
+              <tr>
+                <td colSpan={6} className="px-5 py-12 text-center text-slate-500 dark:text-slate-400">
+                  No products found. Try adjusting your filters.
+                </td>
+              </tr>
+            )}
+            {pageItems.map((product) => (
+              <tr
+                key={product.id}
+                className="border-t border-slate-100 dark:border-slate-700/50 hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors"
+              >
+                <td className="px-5 py-3.5 align-top">
+                  <button
+                    onClick={() => handleOpenDetails(product)}
+                    className="text-blue-600 dark:text-blue-400 hover:underline font-medium text-left"
+                  >
+                    {product.title}
+                  </button>
+                </td>
+                <td className="px-5 py-3.5 align-top text-slate-600 dark:text-slate-400 max-w-[200px] truncate" title={product.sku}>
+                  {product.sku}
+                </td>
+                <td className="px-5 py-3.5 align-top text-slate-700 dark:text-slate-300">
+                  {product.manufacturer}
+                </td>
+                <td className="px-5 py-3.5 align-top text-slate-700 dark:text-slate-300">
+                  {product.distributor}
+                </td>
+                <td className="px-5 py-3.5 align-top text-center">
+                  {product.tags?.includes('AOG') && (
+                    <span className="inline-flex px-2 py-0.5 rounded-md bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 text-xs font-medium">
+                      AOG
+                    </span>
+                  )}
+                </td>
+                <td className="px-5 py-3.5 align-top text-center">
+                  <button
+                    onClick={() => handleOpenDetails(product)}
+                    className="px-3 py-1.5 text-xs font-medium rounded-lg bg-slate-900 dark:bg-slate-700 hover:bg-slate-800 dark:hover:bg-slate-600 text-white transition-colors"
+                  >
+                    View details
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
 
-      <div className="flex justify-center items-center mt-8 gap-1">
-        <button className="p-1 border border-transparent hover:bg-gray-100 dark:hover:bg-[#1E2532] text-gray-500 disabled:opacity-50 transition-colors"><ChevronRight className="w-4 h-4 rotate-180" /></button>
-        <button className="px-3 py-1 text-sm font-bold bg-[#1E2532] dark:bg-[#323B49] text-white rounded-sm">1</button>
-        <button className="px-3 py-1 text-sm font-medium text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-[#1E2532] rounded-sm transition-colors">2</button>
-        <button className="px-3 py-1 text-sm font-medium text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-[#1E2532] rounded-sm transition-colors">3</button>
-        <button className="px-3 py-1 text-sm font-medium text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-[#1E2532] rounded-sm transition-colors">4</button>
-        <span className="px-2 text-gray-400">...</span>
-        <button className="p-1 border border-transparent hover:bg-gray-100 dark:hover:bg-[#1E2532] text-gray-500 transition-colors"><ChevronRight className="w-4 h-4" /></button>
-      </div>
-
+      {products.length > 0 && totalPages > 1 && (
+        <div className="flex justify-center items-center mt-6 gap-1">
+          <button
+            disabled={page <= 1}
+            onClick={() => setPage((p) => Math.max(1, p - 1))}
+            className="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 disabled:opacity-40 disabled:hover:bg-transparent transition-colors"
+          >
+            <ChevronRight className="w-4 h-4 rotate-180" />
+          </button>
+          {Array.from({ length: Math.min(totalPages, 7) }).map((_, idx) => {
+            const pageNumber = idx + 1;
+            const isActive = pageNumber === page;
+            return (
+              <button
+                key={pageNumber}
+                onClick={() => setPage(pageNumber)}
+                className={`min-w-[36px] h-9 px-2 text-sm font-medium rounded-lg transition-colors ${
+                  isActive
+                    ? 'bg-blue-600 text-white'
+                    : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
+                }`}
+              >
+                {pageNumber}
+              </button>
+            );
+          })}
+          <button
+            disabled={page >= totalPages}
+            onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+            className="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 disabled:opacity-40 disabled:hover:bg-transparent transition-colors"
+          >
+            <ChevronRight className="w-4 h-4" />
+          </button>
+        </div>
+      )}
     </div>
   );
 }

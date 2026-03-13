@@ -10,7 +10,7 @@ export default function CrawlerMetadata() {
   ];
 
   return (
-    <div className="bg-white dark:bg-[#11151C] border border-gray-200 dark:border-gray-800 rounded-lg overflow-hidden h-full flex flex-col mt-4 md:mt-0">
+    <div className="bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden flex flex-col">
       <div className="text-[10px] font-bold tracking-wide text-gray-500 uppercase px-4 py-3 border-b border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-transparent flex justify-between items-center">
         <span className="flex items-center"><Globe className="w-4 h-4 mr-2" /> CRAWLER METADATA</span>
         <span className="text-emerald-500 font-bold flex items-center"><span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1.5"></span> RUN</span>

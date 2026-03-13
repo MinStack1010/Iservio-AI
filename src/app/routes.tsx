@@ -5,6 +5,7 @@ import { MonitoringDomains } from "../components/MonitoringDomains";
 import { KnowledgeFeed } from "../components/KnowledgeFeed";
 import { Events } from "../components/Events";
 import { Suppliers } from "../components/Suppliers";
+import RedirectToProducts from "../components/RedirectToProducts";
 import Components from "../components/Components";
 import { ImpactAnalysis } from "../components/ImpactAnalysis";
 import ProductsPage from "./dashboard/products/page";

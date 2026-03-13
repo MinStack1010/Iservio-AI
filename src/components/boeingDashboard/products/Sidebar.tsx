@@ -2,7 +2,8 @@
 'use client';
 import { useState, useMemo } from 'react';
 import { ChevronDown, ChevronUp, Search } from 'lucide-react';
-import { filters } from '../../../lib/mockData';
+import { filters, mockProducts } from '../../../lib/mockData';
+import { useProductStore } from '../../../stores/productsStore';
 
 const DISPLAY_LIMIT = 5; 
 
@@ -24,7 +25,7 @@ function FilterSection({ title, options, searchable = false }: { title: string, 
   const showToggleBtn = !localSearch && filteredOptions.length > DISPLAY_LIMIT;
 
   return (
-    <div className="border-b border-gray-200 dark:border-[#1E2532] last:border-b-0 bg-white dark:bg-[#11151C]">
+    <div className="border-b border-slate-200 dark:border-slate-700 last:border-b-0">
       
       <button 
         onClick={() => setIsOpen(!isOpen)}
@@ -86,8 +87,62 @@ function FilterSection({ title, options, searchable = false }: { title: string, 
 }
 
 export default function Sidebar() {
+  const allProducts = useProductStore((state) => state.allProducts);
+  const manufacturerFilter = useProductStore((state) => state.manufacturerFilter);
+  const toggleManufacturerFilter = useProductStore((state) => state.toggleManufacturerFilter);
+  const clearFilters = useProductStore((state) => state.clearFilters);
+
+  const manufacturerOptions = useMemo(() => {
+    const counter: Record<string, number> = {};
+    allProducts.forEach((p) => {
+      counter[p.manufacturer] = (counter[p.manufacturer] || 0) + 1;
+    });
+    return Object.entries(counter)
+      .map(([label, count]) => ({ label, count }))
+      .sort((a, b) => a.label.localeCompare(b.label));
+  }, [allProducts]);
+
   return (
-    <div className="border border-gray-200 dark:border-[#1E2532] rounded-sm overflow-hidden mb-8">
+    <div className="bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl shadow-sm overflow-hidden sticky top-4">
+      {/* Manufacturer filter giống Boeing shop */}
+      <div className="border-b border-slate-200 dark:border-slate-700">
+        <button className="w-full flex justify-between items-center p-4 text-left">
+          <span className="text-[15px] font-medium text-gray-800 dark:text-gray-200">
+            Manufacturer
+          </span>
+        </button>
+        <div className="px-4 pb-4 flex flex-col gap-3">
+          <div className="flex flex-col gap-2 max-h-56 overflow-y-auto custom-scrollbar pr-1">
+            {manufacturerOptions.map((opt) => {
+              const checked = manufacturerFilter.includes(opt.label);
+              return (
+                <label key={opt.label} className="flex items-center cursor-pointer group">
+                  <input
+                    type="checkbox"
+                    checked={checked}
+                    onChange={() => toggleManufacturerFilter(opt.label)}
+                    className="w-4 h-4 border-gray-300 dark:border-[#323B49] rounded-sm text-[#10B981] focus:ring-[#10B981] cursor-pointer bg-transparent"
+                  />
+                  <span className="ml-3 text-sm text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white flex-grow transition-colors">
+                    {opt.label}
+                  </span>
+                  <span className="text-sm text-gray-400 dark:text-gray-500">({opt.count})</span>
+                </label>
+              );
+            })}
+          </div>
+          {manufacturerFilter.length > 0 && (
+            <button
+              onClick={clearFilters}
+              className="text-xs text-[#10B981] hover:text-[#059669] font-medium self-start"
+            >
+              Clear manufacturer filter
+            </button>
+          )}
+        </div>
+      </div>
+
+      {/* Các filter tĩnh khác (Availability, Product Type, Condition) */}
       {filters.map((filter, idx) => (
         <FilterSection 
           key={idx} 
