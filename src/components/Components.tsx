@@ -15,7 +15,7 @@ const categories = [
   {
     id: 'lubricants',
     name: 'Lubricants',
-    image: "https://images.unsplash.com/photo-1622279255822-6ba8d1f5dca5?q=80&w=800",
+    image: "https://interstatesupply.co.in/wp-content/uploads/2024/06/industrial-lubricant.jpg",
     description: "Oils, greases & hydraulic fluids"
   },
   {
@@ -27,13 +27,13 @@ const categories = [
   {
     id: 'sensors',
     name: 'Sensors',
-    image: "https://images.unsplash.com/photo-1559006801-5002-4bf31-8c8c-6c6a3c017f2d?q=80&w=800",
+    image: "https://circuitdigest.com/sites/default/files/projectimage_tut/Basic-Sensors.jpg",
     description: "Temperature, pressure & vibration sensors"
   },
   {
     id: 'bearings',
     name: 'Bearings',
-    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a26?q=80&w=800",
+    image: "https://fractory.com/wp-content/uploads/2020/08/Types-of-bearings-1.jpg",
     description: "Ball bearings & roller bearings"
   }
 ];
